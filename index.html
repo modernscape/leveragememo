@@ -72,24 +72,22 @@
             min-width: 40px;
             height: 1.5rem;
             margin-left: 5px;
-            /* border: 0; */
-            /* border-color: clear; */
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             addBtns();
-        }, false)
+        }, false);
         var lis = [];
         function addBtns() {
             lis = document.getElementsByTagName('li');
 
             for (let index = 0; index < lis.length; index++) {
                 const li = lis[index];
-                var btn1 = document.createElement('button');
-                btn1.textContent = 'edit';
-                btn1.addEventListener('click', edit);
-                li.appendChild(btn1);
+                // var btn1 = document.createElement('button');
+                // btn1.textContent = 'edit';
+                // btn1.addEventListener('click', edit);
+                // li.appendChild(btn1);
                 var btn2 = document.createElement('button');
                 btn2.textContent = '↑';
                 li.appendChild(btn2);
@@ -98,9 +96,12 @@
                 li.appendChild(btn3);
                 var btn4 = document.createElement('button');
                 btn4.textContent = '削除';
+                btn4.addEventListener('click', showDeleteAlert);
                 li.appendChild(btn4);
             }
         }
+
+        // edit
         function edit(e) {
             const btn = e.target;
             const li = btn.parentNode;
@@ -120,7 +121,21 @@
             btn.removeEventListener('click', doneEdit);
             btn.addEventListener('click', edit);
         }
+
+    // del
+    function showDeleteAlert(e) {
+        console.log('del!');
+        const btn = e.target;
+        const li = btn.parentNode;
+        // const str = li.textContent;
+        var result = window.confirm('この項目を削除しますか？');
+        if (result) {
+            li.remove();
+        }
+        console.log(result);
+    }
     </script>
+
 </head>
 
 <body>
@@ -141,7 +156,6 @@
         <div style="text-align: center;"><button>＋</button></div>
         <br>
         <ul class="two">
-            <li><input type="text" value="誰にも真似できない圧倒的な経験の量" disabled></li>
             <li>誰にも真似できない圧倒的な経験の<b>量</b></li>
             <li><b>楽して</b>成功はできない</li>
             <li>成功のカギ＝「<b>小さな成功体験</b>」を積み重ねること</li>
