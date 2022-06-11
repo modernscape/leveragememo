@@ -13,9 +13,11 @@
         }
         html {
             font-size: 16px;
+          
         }
         body {
             font-family: sans-serif;
+              line-height: 1.5;
         }
         h1 {
             font-size: 140%;
@@ -40,9 +42,9 @@
         }
         .content li {
             list-style-type: none;
+            line-height: 2;
         }
-
-         .content li::before {
+        .content li::before {
             content: "◎ ";
             color:rgb(119, 119, 119);
         }
@@ -57,7 +59,68 @@
             color: rgb(100, 100, 100);
             font-size: 90%;
         }
+        input{
+            width: 80%;
+            height: 1.5rem;
+            padding: 0;
+        }
+        input::before {
+            content: "◎ ";
+            color:rgb(119, 119, 119);
+        }
+        button {
+            min-width: 40px;
+            height: 1.5rem;
+            margin-left: 5px;
+            /* border: 0; */
+            /* border-color: clear; */
+        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function (e) {
+            addBtns();
+        }, false)
+        var lis = [];
+        function addBtns() {
+            lis = document.getElementsByTagName('li');
+
+            for (let index = 0; index < lis.length; index++) {
+                const li = lis[index];
+                var btn1 = document.createElement('button');
+                btn1.textContent = 'edit';
+                btn1.addEventListener('click', edit);
+                li.appendChild(btn1);
+                var btn2 = document.createElement('button');
+                btn2.textContent = '↑';
+                li.appendChild(btn2);
+                var btn3 = document.createElement('button');
+                btn3.textContent = '↓';
+                li.appendChild(btn3);
+                var btn4 = document.createElement('button');
+                btn4.textContent = '削除';
+                li.appendChild(btn4);
+            }
+        }
+        function edit(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+            const input = li.firstChild;
+            input.removeAttribute("disabled");
+            btn.textContent = "✔️";
+            btn.removeEventListener('click', edit);
+            btn.addEventListener('click', doneEdit);
+        }
+
+        function doneEdit(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+            const input = li.firstChild;
+            input.setAttribute("disabled", "disabled");
+            btn.textContent = "edit";
+            btn.removeEventListener('click', doneEdit);
+            btn.addEventListener('click', edit);
+        }
+    </script>
 </head>
 
 <body>
@@ -75,7 +138,10 @@
         <br>
         <br>
         <h2>レバレッジメモ</h2>
+        <div style="text-align: center;"><button>＋</button></div>
+        <br>
         <ul class="two">
+            <li><input type="text" value="誰にも真似できない圧倒的な経験の量" disabled></li>
             <li>誰にも真似できない圧倒的な経験の<b>量</b></li>
             <li><b>楽して</b>成功はできない</li>
             <li>成功のカギ＝「<b>小さな成功体験</b>」を積み重ねること</li>
