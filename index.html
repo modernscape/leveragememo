@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>leverage memo</title>
+    <script src="data.js"></script>
     <style>
         * {
             margin: 0;
@@ -90,9 +91,11 @@
                 // li.appendChild(btn1);
                 var btn2 = document.createElement('button');
                 btn2.textContent = '↑';
+                btn2.addEventListener('click', moveUp);
                 li.appendChild(btn2);
                 var btn3 = document.createElement('button');
                 btn3.textContent = '↓';
+                btn3.addEventListener('click', moveDown);
                 li.appendChild(btn3);
                 var btn4 = document.createElement('button');
                 btn4.textContent = '削除';
@@ -122,18 +125,45 @@
             btn.addEventListener('click', edit);
         }
 
-    // del
-    function showDeleteAlert(e) {
-        console.log('del!');
-        const btn = e.target;
-        const li = btn.parentNode;
-        // const str = li.textContent;
-        var result = window.confirm('この項目を削除しますか？');
-        if (result) {
-            li.remove();
+        function moveUp(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+     
+            // const nextLi = li.nextElementSibling;
+            const prevLi = li.previousElementSibling;
+            const ul = li.parentNode;
+            ul.insertBefore(li, prevLi);
         }
-        console.log(result);
-    }
+
+        function moveDown(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+            const nextLi = li.nextElementSibling;
+            // const prevLi = li.previousElementSibling;
+            const ul = li.parentNode;
+            ul.insertBefore(nextLi, li);
+        }
+
+        // del
+        function showDeleteAlert(e) {
+            console.log('del!');
+            const btn = e.target;
+            const li = btn.parentNode;
+            // const str = li.textContent;
+            var result = window.confirm('この項目を削除しますか？');
+            if (result) {
+                li.remove();
+            }
+            console.log(result);
+        }
+        
+        function saveData() {
+
+        }
+
+        function loadData() {
+            
+        }
     </script>
 
 </head>
