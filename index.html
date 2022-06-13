@@ -44,6 +44,7 @@
         .content li {
             list-style-type: none;
             line-height: 2;
+            border-top: 1px dotted #333;
         }
         .content li::before {
             content: "◎ ";
@@ -90,12 +91,12 @@
                 // btn1.addEventListener('click', edit);
                 // li.appendChild(btn1);
                 var btn2 = document.createElement('button');
-                btn2.textContent = '↑';
-                btn2.addEventListener('click', moveUp);
+                btn2.textContent = '⏫';
+                btn2.addEventListener('click', moveTop);
                 li.appendChild(btn2);
                 var btn3 = document.createElement('button');
-                btn3.textContent = '↓';
-                btn3.addEventListener('click', moveDown);
+                btn3.textContent = '⏬';
+                btn3.addEventListener('click', moveBottom);
                 li.appendChild(btn3);
                 var btn4 = document.createElement('button');
                 btn4.textContent = '削除';
@@ -125,21 +126,36 @@
             btn.addEventListener('click', edit);
         }
 
+        function moveTop(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+            const ul = li.parentNode;
+            const firstLi = ul.firstChild;
+            ul.insertBefore(li, firstLi);
+        }
+
         function moveUp(e) {
             const btn = e.target;
             const li = btn.parentNode;
-     
-            // const nextLi = li.nextElementSibling;
             const prevLi = li.previousElementSibling;
             const ul = li.parentNode;
             ul.insertBefore(li, prevLi);
         }
 
+        function moveBottom(e) {
+            const btn = e.target;
+            const li = btn.parentNode;
+            const ul = li.parentNode;
+            ul.appendChild(li);
+            // const firstLi = ul.firstChild;
+            // ul.insertBefore(li, firstLi);
+        }
+
+
         function moveDown(e) {
             const btn = e.target;
             const li = btn.parentNode;
             const nextLi = li.nextElementSibling;
-            // const prevLi = li.previousElementSibling;
             const ul = li.parentNode;
             ul.insertBefore(nextLi, li);
         }
@@ -149,7 +165,6 @@
             console.log('del!');
             const btn = e.target;
             const li = btn.parentNode;
-            // const str = li.textContent;
             var result = window.confirm('この項目を削除しますか？');
             if (result) {
                 li.remove();
@@ -162,7 +177,7 @@
         }
 
         function loadData() {
-            
+
         }
     </script>
 
@@ -183,7 +198,7 @@
         <br>
         <br>
         <h2>レバレッジメモ</h2>
-        <div style="text-align: center;"><button>＋</button></div>
+        <!-- <div style="text-align: center;"><button>＋</button></div> -->
         <br>
         <ul class="two">
             <li>誰にも真似できない圧倒的な経験の<b>量</b></li>
